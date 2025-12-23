@@ -1,0 +1,26 @@
+{
+  "book": "john",
+  "chapter": 6,
+  "sections": [
+    {
+      "range": "1-14",
+      "verses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "text": "Verses 1-14 John relates the miracle of feeding the multitude, for its reference to the following discourse. Observe the effect this miracle had upon the people. Even the common Jews expected the Messiah to come into the world, and to be a great Prophet. The Pharisees despised them as not knowing the law; but they knew most of Him who is the end of the law. Yet men may acknowledge Christ as that Prophet, and still turn a deaf ear to him."
+    }
+  ]
+}

@@ -1,98 +1,217 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { theme } from "@/lib/theme";
+import { router } from "expo-router";
+import React from "react";
+import {
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView style={styles.safe}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Greeting */}
+        <View style={styles.header}>
+          <Text style={styles.greeting}>Good Evening</Text>
+          <Text style={styles.subGreeting}>Take a moment with God today.</Text>
+        </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        {/* Verse of the Day */}
+        <View style={styles.verseCard}>
+          <View style={styles.verseAccent} />
+          <Text style={styles.verseRef}>John 14:27</Text>
+          <Text style={styles.verseText}>
+            “Peace I leave with you; my peace I give to you. I do not give to
+            you as the world gives.”
+          </Text>
+
+          <Pressable
+            onPress={() =>
+              router.push({
+                pathname: "/bible",
+                params: { book: "john", chapter: "14" },
+              })
+            }
+            style={({ pressed }) => [styles.linkBtn, pressed && { opacity: 0.7 }]}
+          >
+            <Text style={styles.linkBtnText}>Read in Context →</Text>
+          </Pressable>
+        </View>
+
+        {/* Main Actions */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Today</Text>
+
+          <View style={styles.grid}>
+            <ActionCard
+              title="Read Bible"
+              subtitle="Continue reading"
+              onPress={() => router.push("/bible")}
+            />
+            <ActionCard
+              title="Devotional"
+              subtitle="Daily reflection"
+              onPress={() => router.push("/devotional")}
+            />
+            <ActionCard
+              title="Prayer"
+              subtitle="Speak with God"
+              onPress={() => router.push("/prayer")}
+            />
+            <ActionCard
+              title="Saved"
+              subtitle="Bookmarks"
+              onPress={() => router.push("/bookmarks")}
+            />
+          </View>
+        </View>
+
+        {/* Continue Reading */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Continue Reading</Text>
+
+          <Pressable
+            style={({ pressed }) => [styles.continueCard, pressed && { opacity: 0.7 }]}
+            onPress={() =>
+              router.push({
+                pathname: "/bible",
+                params: { book: "john", chapter: "3" },
+              })
+            }
+          >
+            <Text style={styles.continueRef}>John 3</Text>
+            <Text style={styles.continueText}>For God so loved the world…</Text>
+          </Pressable>
+        </View>
+
+        <View style={{ height: 40 }} />
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+function ActionCard({
+  title,
+  subtitle,
+  onPress,
+}: {
+  title: string;
+  subtitle: string;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [styles.card, pressed && { opacity: 0.7 }]}
+    >
+      <Text style={styles.cardTitle}>{title}</Text>
+      <Text style={styles.cardSubtitle}>{subtitle}</Text>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  safe: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  container: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
+
+  header: { marginBottom: 24 },
+  greeting: {
+    color: theme.colors.textPrimary,
+    fontSize: 26,
+    fontWeight: "800",
+  },
+  subGreeting: {
+    marginTop: 6,
+    color: theme.colors.textSecondary,
+    fontSize: 16,
+  },
+
+  verseCard: {
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.card,
+    padding: 18,
+    marginBottom: 28,
+    position: "relative",
+    overflow: "hidden",
+  },
+  verseAccent: {
+    position: "absolute",
     left: 0,
-    position: 'absolute',
+    top: 14,
+    bottom: 14,
+    width: 3,
+    borderRadius: 3,
+    backgroundColor: theme.colors.accent, // 👈 amber accent
   },
+  verseRef: {
+    color: theme.colors.textSecondary,
+    fontWeight: "700",
+    marginBottom: 8,
+    paddingLeft: 6,
+  },
+  verseText: {
+    color: theme.colors.textPrimary,
+    fontSize: 16,
+    lineHeight: 22,
+    paddingLeft: 6,
+  },
+
+  linkBtn: { marginTop: 14, paddingLeft: 6 },
+  linkBtnText: { color: theme.colors.primary, fontWeight: "800" },
+
+  section: { marginBottom: 28 },
+  sectionTitle: {
+    color: theme.colors.textPrimary,
+    fontSize: 20,
+    fontWeight: "800",
+    marginBottom: 14,
+  },
+
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 12,
+  },
+
+  card: {
+    width: "48%",
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.card,
+    padding: 16,
+  },
+  cardTitle: {
+    color: theme.colors.textPrimary,
+    fontSize: 16,
+    fontWeight: "800",
+  },
+  cardSubtitle: {
+    marginTop: 6,
+    color: theme.colors.textSecondary,
+    fontSize: 14,
+  },
+
+  continueCard: {
+    backgroundColor: theme.colors.surfaceAlt,
+    borderRadius: theme.radius.card,
+    padding: 16,
+  },
+  continueRef: {
+    color: theme.colors.textPrimary,
+    fontWeight: "900",
+    marginBottom: 6,
+  },
+  continueText: { color: theme.colors.textSecondary },
 });

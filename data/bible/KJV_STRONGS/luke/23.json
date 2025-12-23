@@ -1,0 +1,230 @@
+{
+  "book": "luke",
+  "chapter": 23,
+  "verses": [
+    {
+      "v": 1,
+      "t": "And{G2532} the whole{G537} multitude{G3588} of them{G846} arose{G450}, and led{G71} him{G846} unto{G1909} Pilate{G3588}."
+    },
+    {
+      "v": 2,
+      "t": "And{G1161} they began{G756} to accuse{G2723} him{G846}, saying{G3004}, We found{G2147} this{G5126} fellow perverting{G1294} the nation{G3588}, and{G2532} forbidding{G2967} to give{G1325} tribute{G5411} to Cæsar{G2541}, saying{G3004} that he himself{G1438} is{G1511} Christ{G5547} a King{G935}."
+    },
+    {
+      "v": 3,
+      "t": "And{G1161} Pilate{G4091} asked{G1905} him{G846}, saying{G3004}, Art{G1488} thou{G4771} the King{G3588} of the Jews{G2453}? And{G1161} he answered{G611} him{G846} and said{G5346}, Thou{G4771} sayest{G3004} it."
+    },
+    {
+      "v": 4,
+      "t": "Then{G1161} said{G2036} Pilate{G4091} to{G4314} the chief priests{G3588} and{G2532} to the people{G3588}, I find{G2147} no{G3762} fault{G158} in{G1722} this{G5129} man{G3588}."
+    },
+    {
+      "v": 5,
+      "t": "And{G1161} they were the more fierce{G2001}, saying{G3004}, He stirreth up{G383} the people{G3588}, teaching{G1321} throughout{G2596} all{G3650} Jewry{G3588}, beginning{G756} from{G575} Galilee{G3588} to{G2193} this place{G5602}."
+    },
+    {
+      "v": 6,
+      "t": "When{G1161} Pilate{G4091} heard{G191} of Galilee{G1056}, he asked{G1905} whether{G1487} the man{G3588} were{G2076} a Galilæan{G1057}."
+    },
+    {
+      "v": 7,
+      "t": "And{G2532} as soon as he knew{G1921} that{G3754} he belonged{G2076} unto{G1537} Herod's{G2264} jurisdiction{G3588}, he sent{G375} him{G846} to{G4314} Herod{G2264}, who himself{G846} also{G2532} was{G5607} at{G1722} Jerusalem{G2414} at{G1722} that{G3778} time{G3588}."
+    },
+    {
+      "v": 8,
+      "t": "And when{G1161} Herod{G2264} saw{G1492} Jesus{G3588}, he was{G5463} exceeding{G3029} glad{G5463}: for{G1063} he was{G2258} desirous{G2309} to see{G1492} him{G846} of{G1537} a long{G2425} season, because{G1223} he had heard{G191} many things{G4183} of{G4012} him{G846}; and{G2532} he hoped{G1679} to have seen{G1492} some{G5100} miracle{G4592} done{G1096} by{G5259} him{G846}."
+    },
+    {
+      "v": 9,
+      "t": "Then{G1161} he{G846} questioned{G1905} with him{G846} in{G1722} many{G2425} words{G3056}; but{G1161} he answered{G611} him{G846} nothing{G3762}."
+    },
+    {
+      "v": 10,
+      "t": "And{G1161} the chief priests{G3588} and{G2532} scribes{G3588} stood{G2476} and{G2723} vehemently{G2159} accused{G2723} him{G846}."
+    },
+    {
+      "v": 11,
+      "t": "And{G1161} Herod{G3588} with{G4862} his{G846} men of war{G3588} set{G1848} him{G846} at nought{G1848}, and{G2532} mocked{G1702} him, and arrayed{G4016} him{G846} in a gorgeous{G2986} robe{G2066}, and sent{G375} him{G846} again{G375} to Pilate{G3588}."
+    },
+    {
+      "v": 12,
+      "t": "And{G1161} the same{G846} day{G3588} Pilate{G4091} and{G2532} Herod{G3588} were made{G1096} friends{G5384} together{G240}: for{G1063} before{G4391} they were{G5607} at{G1722} enmity{G2189} between{G4314} themselves{G1438}."
+    },
+    {
+      "v": 13,
+      "t": "And{G1161} Pilate{G4091}, when he had called together{G4779} the chief priests{G3588} and{G2532} the rulers{G3588} and{G2532} the people{G3588},"
+    },
+    {
+      "v": 14,
+      "t": "Said{G2036} unto{G4314} them{G846}, Ye have brought{G4374} this{G5126} man{G3588} unto me{G3427}, as{G5613} one that perverteth{G654} the people{G3588}: and{G2532}, behold{G2400}, I{G1473}, having examined{G350} him before{G1799} you{G5216}, have found{G2147} no{G3762} fault{G158} in{G1722} this{G5129} man{G3588} touching those things whereof{G3739} ye accuse{G2723} him{G846}:"
+    },
+    {
+      "v": 15,
+      "t": "No{G235}, nor yet{G3761} Herod{G2264}: for{G1063} I sent{G375} you{G5209} to{G4314} him{G846}; and{G2532}, lo{G2400}, nothing{G3762} worthy{G514} of death{G2288} is{G2076} done{G4238} unto him{G846}."
+    },
+    {
+      "v": 16,
+      "t": "I will{G3811} therefore{G3767} chastise{G3811} him{G846}, and release{G630} him."
+    },
+    {
+      "v": 17,
+      "t": "(For{G1161} of necessity{G318} he must{G2192} release{G630} one{G1520} unto them{G846} at{G2596} the feast{G1859}.)"
+    },
+    {
+      "v": 18,
+      "t": "And{G1161} they cried out{G349} all at once{G3826}, saying{G3004}, Away with{G142} this{G5126} man, and{G1161} release{G630} unto us{G2254} Barabbas{G3588}:"
+    },
+    {
+      "v": 19,
+      "t": "(Who{G3748} for{G1223} a certain{G5100} sedition{G4714} made{G1096} in{G1722} the city{G3588}, and{G2532} for murder{G5408}, was cast{G906} into{G1519} prison{G5438}.)"
+    },
+    {
+      "v": 20,
+      "t": "Pilate{G3588} therefore{G3767}, willing{G2309} to release{G630} Jesus{G3588}, spake{G4377} again to them{G3825}."
+    },
+    {
+      "v": 21,
+      "t": "But{G1161} they cried{G2019}, saying{G3004}, Crucify{G4717} him, crucify{G4717} him{G846}."
+    },
+    {
+      "v": 22,
+      "t": "And{G1161} he said{G2036} unto{G4314} them{G846} the third time{G5154}, Why{G5101}, what{G1063} evil{G2556} hath{G4160} he{G3778} done{G4160}? I have found{G2147} no{G3762} cause{G158} of death{G2288} in{G1722} him{G846}: I will{G3811} therefore{G3767} chastise{G3811} him{G846}, and let{G630} him go{G630}."
+    },
+    {
+      "v": 23,
+      "t": "And{G1161} they were instant{G1945} with loud{G3173} voices{G5456}, requiring{G154} that{G4717} he{G846} might be crucified{G4717}. And{G2532} the voices{G3588} of them{G846} and{G2532} of the chief priests{G3588} prevailed{G2729}."
+    },
+    {
+      "v": 24,
+      "t": "And{G1161} Pilate{G4091} gave sentence{G1948} that it should be{G1096} as they{G846} required{G3588}."
+    },
+    {
+      "v": 25,
+      "t": "And{G1161} he released{G630} unto them{G846} him that{G3588} for{G1223} sedition{G4714} and{G2532} murder{G5408} was cast{G906} into{G1519} prison{G3588}, whom{G3739} they had desired{G154}; but{G1161} he delivered{G3860} Jesus{G2424} to their{G846} will{G3588}."
+    },
+    {
+      "v": 26,
+      "t": "And{G2532} as{G5613} they led{G520} him{G846} away{G520}, they laid hold upon{G1949} one{G5100} Simon{G4613}, a Cyrenian{G2956}, coming out{G2064} of{G575} the country{G68}, and{G2007} on him{G846} they laid{G2007} the cross{G3588}, that he might bear{G5342} it after{G3693} Jesus{G3588}."
+    },
+    {
+      "v": 27,
+      "t": "And{G1161} there followed{G190} him{G846} a great{G4183} company{G4128} of people{G3588}, and{G2532} of women{G1135}, which{G3739} also{G2532} bewailed{G2875} and{G2532} lamented{G2354} him{G846}."
+    },
+    {
+      "v": 28,
+      "t": "But{G1161} Jesus{G3588} turning{G4762} unto{G4314} them{G846} said{G2036}, Daughters{G2364} of Jerusalem{G2419}, weep{G2799} not{G3361} for{G1909} me{G1691}, but{G4133} weep{G2799} for yourselves{G1438}, and{G2532} for{G1909} your{G5216} children{G3588}."
+    },
+    {
+      "v": 29,
+      "t": "For{G3754}, behold{G2400}, the days{G2250} are coming{G2064}, in{G1722} the which{G3739} they shall say{G2046}, Blessed{G3107} are the barren{G3588}, and{G2532} the wombs{G2836} that{G3739} never{G3756} bare{G1080}, and{G2532} the paps{G3149} which{G3739} never{G3756} gave suck{G2337}."
+    },
+    {
+      "v": 30,
+      "t": "Then{G5119} shall they begin{G756} to say{G3004} to the mountains{G3588}, Fall{G4098} on{G1909} us{G2248}; and{G2532} to the hills{G3588}, Cover{G2572} us{G2248}."
+    },
+    {
+      "v": 31,
+      "t": "For{G3754} if{G1487} they do{G4160} these things{G5023} in{G1722} a green{G5200} tree{G3586}, what{G5101} shall be done{G1096} in{G1722} the dry{G3584}?"
+    },
+    {
+      "v": 32,
+      "t": "And{G1161} there were{G71} also{G2532} two{G1417} other{G2087}, malefactors{G2557}, led with{G4862} him{G846} to be put to death{G337}."
+    },
+    {
+      "v": 33,
+      "t": "And{G2532} when{G3753} they were come{G565} to{G1909} the place{G3588}, which{G3588} is called{G2564} Calvary{G2898}, there{G1563} they crucified{G4717} him{G846}, and{G2532} the malefactors{G2557}, one{G3739} on{G1537} the right hand{G1188}, and{G1161} the other{G3739} on{G1537} the left{G710}."
+    },
+    {
+      "v": 34,
+      "t": "Then{G1161} said{G3004} Jesus{G2424}, Father{G3962}, forgive{G863} them{G846}; for{G1063} they know{G1492} not{G3756} what{G5101} they do{G4160}. And{G1161} they parted{G1266} his{G846} raiment{G3588}, and cast{G906} lots{G2819}."
+    },
+    {
+      "v": 35,
+      "t": "And{G2532} the people{G3588} stood{G2476} beholding{G2334}. And{G1161} the rulers{G3588} also{G2532} with{G4862} them{G846} derided{G1592} him, saying{G3004}, He saved{G4982} others{G243}; let him save{G4982} himself{G1438}, if{G1487} he{G3778} be{G2076} Christ{G3588}, the chosen{G1588} of God{G3588}."
+    },
+    {
+      "v": 36,
+      "t": "And{G1161} the soldiers{G3588} also{G2532} mocked{G1702} him{G846}, coming to{G4334} him{G846}, and{G2532} offering him{G4374} vinegar{G3690},"
+    },
+    {
+      "v": 37,
+      "t": "And{G2532} saying{G3004}, If{G1487} thou{G4771} be{G1488} the king{G3588} of the Jews{G2453}, save{G4982} thyself{G4572}."
+    },
+    {
+      "v": 38,
+      "t": "And{G1161} a superscription{G1923} also{G2532} was{G2258} written{G1125} over{G1909} him{G846} in letters{G1121} of Greek{G1673}, and{G2532} Latin{G4513}, and{G2532} Hebrew{G1444}, THIS{G3778} IS{G2076} THE KING{G3588} OF THE JEWS{G2453}."
+    },
+    {
+      "v": 39,
+      "t": "And{G1161} one{G1520} of the malefactors{G2557} which{G3588} were hanged{G2910} railed{G987} on him{G846}, saying{G3004}, If{G1487} thou{G4771} be{G1488} Christ{G3588}, save{G4982} thyself{G4572} and{G2532} us{G2248}."
+    },
+    {
+      "v": 40,
+      "t": "But{G1161} the other{G2087} answering{G611} rebuked{G2008} him{G846}, saying{G3004}, Dost{G5399} not{G3761} thou{G4771} fear{G5399} God{G3588}, seeing{G3754} thou art{G1488} in{G1722} the same{G846} condemnation{G2917}?"
+    },
+    {
+      "v": 41,
+      "t": "And{G2532} we{G2249} indeed{G3303} justly{G1346}; for{G1063} we receive{G618} the due reward{G514} of our deeds{G4238}: but{G1161} this man{G3778} hath done{G4238} nothing{G3762} amiss{G824}."
+    },
+    {
+      "v": 42,
+      "t": "And{G2532} he said{G3004} unto Jesus{G3588}, Lord{G2962}, remember{G3415} me{G3450} when{G3752} thou comest{G2064} into{G1722} thy{G4675} kingdom{G3588}."
+    },
+    {
+      "v": 43,
+      "t": "And{G2532} Jesus{G3588} said{G2036} unto him{G846}, Verily{G281} I say{G3004} unto thee{G4671}, To day{G4594} shalt thou be{G2071} with{G3326} me{G1700} in{G1722} paradise{G3588}."
+    },
+    {
+      "v": 44,
+      "t": "And{G1161} it was{G2258} about{G5616} the sixth{G1623} hour{G5610}, and{G2532} there was{G1096} a darkness{G4655} over{G1909} all{G3650} the earth{G3588} until{G2193} the ninth{G1766} hour{G5610}."
+    },
+    {
+      "v": 45,
+      "t": "And{G2532} the sun{G3588} was darkened{G4654}, and{G2532} the veil{G3588} of the temple{G3588} was rent{G4977} in the midst{G3319}."
+    },
+    {
+      "v": 46,
+      "t": "And{G2532} when Jesus{G3588} had cried{G5455} with a loud{G3173} voice{G5456}, he said{G2036}, Father{G3962}, into{G1519} thy{G4675} hands{G5495} I commend{G3908} my{G3450} spirit{G3588}: and{G2532} having said{G2036} thus{G5023}, he gave up the ghost{G1606}."
+    },
+    {
+      "v": 47,
+      "t": "Now{G1161} when the centurion{G3588} saw{G1492} what{G3588} was done{G1096}, he glorified{G1392} God{G3588}, saying{G3004}, Certainly{G3689} this{G3778} was{G2258} a righteous{G1342} man{G3588}."
+    },
+    {
+      "v": 48,
+      "t": "And{G2532} all{G3956} the people{G3793} that{G3588} came together{G4836} to{G1909} that{G3778} sight{G3588}, beholding{G2334} the things which{G3588} were done{G1096}, smote{G5180} their{G1438} breasts{G3588}, and returned{G5290}."
+    },
+    {
+      "v": 49,
+      "t": "And{G1161} all{G3956} his{G846} acquaintance{G1110}, and{G2532} the women{G1135} that{G3588} followed{G4870} him{G846} from{G575} Galilee{G3588}, stood{G2476} afar off{G3113}, beholding{G3708} these things{G5023}."
+    },
+    {
+      "v": 50,
+      "t": "And{G2532}, behold{G2400}, there was a man{G435} named{G3686} Joseph{G2501}, a counsellor{G1010}; and he was a good{G18} man{G435}, and{G2532} a just{G1342}:"
+    },
+    {
+      "v": 51,
+      "t": "(The same{G3778} had{G2258} not{G3756} consented{G4784} to the counsel{G3588} and{G2532} deed{G3588} of them{G846};) he was of{G575} Arimathæa{G707}, a city{G4172} of the Jews{G2453}: who{G3739} also{G2532} himself{G846} waited{G4327} for{G2532} the kingdom{G3588} of God{G3588}."
+    },
+    {
+      "v": 52,
+      "t": "This{G3778} man went{G4334} unto Pilate{G3588}, and begged{G154} the body{G3588} of Jesus{G3588}."
+    },
+    {
+      "v": 53,
+      "t": "And{G2532} he{G846} took it down{G2507}, and wrapped{G1794} it{G846} in linen{G4616}, and{G2532} laid{G5087} it{G846} in{G1722} a sepulchre{G3418} that was hewn in stone{G2991}, wherein{G3757} never{G3756} man{G3762} before{G3764} was{G2258} laid{G2749}."
+    },
+    {
+      "v": 54,
+      "t": "And{G2532} that day{G2250} was{G2258} the preparation{G3904}, and{G2532} the sabbath{G4521} drew on{G2020}."
+    },
+    {
+      "v": 55,
+      "t": "And{G1161}the women{G1135} also{G2532}, which{G3748} came{G4905} with him{G846} from{G1537} Galilee{G3588}, followed after{G2628}, and beheld{G2300} the sepulchre{G3588}, and{G2532} how{G5613} his{G846} body{G3588} was laid{G5087}."
+    },
+    {
+      "v": 56,
+      "t": "And{G1161} they returned{G5290}, and prepared{G2090} spices{G759} and{G2532} ointments{G3464}; and{G2532} rested{G2270} the{G3303} sabbath day{G4521} according to{G2596} the commandment{G3588}."
+    }
+  ]
+}

@@ -1,0 +1,290 @@
+{
+  "book": "luke",
+  "chapter": 22,
+  "verses": [
+    {
+      "v": 1,
+      "t": "Now{G1161} the feast{G3588} of unleavened bread{G106} drew nigh{G1448}, which{G3588} is called{G3004} the Passover{G3957}."
+    },
+    {
+      "v": 2,
+      "t": "And{G2532} the chief priests{G3588} and{G2532} scribes{G3588} sought{G2212} how{G4459} they might kill{G337} him{G846}; for{G1063} they feared{G5399} the people{G3588}."
+    },
+    {
+      "v": 3,
+      "t": "Then{G1161} entered{G1525} Satan{G3588} into{G1519} Judas{G2455} surnamed{G1941} Iscariot{G2469}, being{G5607} of{G1537} the number{G3588} of the twelve{G1427}."
+    },
+    {
+      "v": 4,
+      "t": "And{G2532} he went his way{G565}, and communed{G4814} with the chief priests{G3588} and{G2532} captains{G3588}, how{G4459} he might betray{G3860} him{G846} unto them{G846}."
+    },
+    {
+      "v": 5,
+      "t": "And{G2532} they were glad{G5463}, and{G2532} covenanted{G4934} to give{G1325} him{G846} money{G694}."
+    },
+    {
+      "v": 6,
+      "t": "And{G2532} he promised{G1843}, and{G2532} sought{G2212} opportunity{G2120} to betray{G3860} him{G846} unto them{G846} in the absence of{G817} the multitude{G3793}."
+    },
+    {
+      "v": 7,
+      "t": "Then{G1161} came{G2064} the day{G3588} of unleavened bread{G106}, when{G3739} the passover{G3957} must{G1163} be killed{G2380}."
+    },
+    {
+      "v": 8,
+      "t": "And{G2532} he sent{G649} Peter{G4074} and{G2532} John{G2491}, saying{G2036}, Go{G4198} and prepare{G2090} us{G2254} the passover{G3957}, that{G2443} we may eat{G5315}."
+    },
+    {
+      "v": 9,
+      "t": "And{G1161} they said{G2036} unto him{G846}, Where{G4226} wilt thou{G2309} that we prepare{G2090}?"
+    },
+    {
+      "v": 10,
+      "t": "And{G1161} he said{G2036} unto them{G846}, Behold{G2400}, when ye{G5216} are entered{G1525} into{G1519} the city{G3588}, there shall{G4876} a man{G444} meet{G4876} you{G5213}, bearing{G941} a pitcher{G2765} of water{G5204}; follow{G190} him{G846} into{G1519} the house{G3588} where{G3757} he entereth in{G1531}."
+    },
+    {
+      "v": 11,
+      "t": "And{G2532} ye shall say{G2046} unto the goodman{G3588} of the house{G3588}, The Master{G3588} saith{G3004} unto thee{G4671}, Where{G4226} is{G2076} the guestchamber{G3588}, where{G3699} I shall eat{G5315} the passover{G3957} with{G3326} my{G3450} disciples{G3588}?"
+    },
+    {
+      "v": 12,
+      "t": "And he{G2548} shall shew{G1166} you{G5213} a large{G3173} upper room{G508} furnished{G4766}: there{G1563} make ready{G2090}."
+    },
+    {
+      "v": 13,
+      "t": "And{G1161} they went{G565}, and found{G2147} as{G2531} he had said{G2046} unto them{G846}: and{G2532} they made ready{G2090} the passover{G3957}."
+    },
+    {
+      "v": 14,
+      "t": "And{G2532} when{G3753} the hour{G3588} was come{G1096}, he sat down{G377}, and{G2532} the twelve{G1427} apostles{G652} with{G4862} him{G846}."
+    },
+    {
+      "v": 15,
+      "t": "And{G2532} he said{G2036} unto{G4314} them{G846}, With desire{G1939} I have desired{G1937} to eat{G5315} this{G5124} passover{G3957} with{G3326} you{G5216} before{G4253} I{G3165} suffer{G3958}:"
+    },
+    {
+      "v": 16,
+      "t": "For{G1063} I say{G3004} unto you{G5213}, I will{G5315} not{G3361} any more{G3765} eat{G5315} thereof{G846}, until{G2193} it be fulfilled{G4137} in{G1722} the kingdom{G3588} of God{G3588}."
+    },
+    {
+      "v": 17,
+      "t": "And{G2532} he took{G1209} the cup{G4221}, and gave thanks{G2168}, and said{G2036}, Take{G2983} this{G5124}, and{G2532} divide{G1266} it among yourselves{G1438}:"
+    },
+    {
+      "v": 18,
+      "t": "For{G1063} I say{G3004} unto you{G5213}, I will{G4095} not{G3361} drink{G4095} of{G575} the fruit{G3588} of the vine{G3588}, until{G2193} the kingdom{G3588} of God{G3588} shall come{G2064}."
+    },
+    {
+      "v": 19,
+      "t": "And{G2532} he took{G2983} bread{G740}, and gave thanks{G2168}, and brake{G2806} it, and{G2532} gave{G1325} unto them{G846}, saying{G3004}, This{G5124} is{G2076} my{G3450} body{G3588} which{G3588} is given{G1325} for{G5228} you{G5216}: this{G5124} do{G4160} in{G1519} remembrance{G364} of me{G1699}."
+    },
+    {
+      "v": 20,
+      "t": "Likewise{G5615} also{G2532} the cup{G3588} after{G3326} supper{G1172}, saying{G3004}, This{G5124} cup{G3588} is the new{G2537} testament{G1242} in{G1722} my{G3450} blood{G3588}, which{G3588} is shed{G1632} for{G5228} you{G5216}."
+    },
+    {
+      "v": 21,
+      "t": "But{G4133}, behold{G2400}, the hand{G3588} of him that{G3588} betrayeth{G3860} me{G3165} is with{G3326} me{G1700} on{G1909} the table{G3588}."
+    },
+    {
+      "v": 22,
+      "t": "And{G2532} truly{G3303} the Son{G5207} of man{G3588} goeth{G4198}, as{G2596} it was determined{G3724}: but{G4133} woe{G3759} unto that{G1565} man{G3588} by{G1223} whom{G3739} he is betrayed{G3860}!"
+    },
+    {
+      "v": 23,
+      "t": "And{G2532} they{G846} began{G756} to enquire{G4802} among{G4314} themselves{G1438}, which{G5101} of{G1537} them{G846} it was{G1498} that should{G3195} do{G4238} this thing{G5124}."
+    },
+    {
+      "v": 24,
+      "t": "And{G1161} there was{G1096} also{G2532} a strife{G5379} among{G1722} them{G846}, which{G5101} of them{G846} should be{G1511} accounted{G1380} the greatest{G3187}."
+    },
+    {
+      "v": 25,
+      "t": "And{G1161} he said{G2036} unto them{G846}, The kings{G3588} of the Gentiles{G3588} exercise lordship{G2961} over them{G846}; and{G2532} they that{G3588} exercise authority upon{G1850} them{G846} are called{G2564} benefactors{G2110}."
+    },
+    {
+      "v": 26,
+      "t": "But{G1161} ye{G5210} shall not{G3756} be so{G3779}: but{G235} he that{G3588} is greatest{G3187} among{G1722} you{G5213}, let him be{G1096} as{G5613} the younger{G3501}; and{G2532} he that is chief{G2233}, as{G5613} he that{G3588} doth serve{G1247}."
+    },
+    {
+      "v": 27,
+      "t": "For{G1063} whether{G5101} is greater{G3187}, he that{G3588} sitteth at meat{G345}, or{G2228} he that{G3588} serveth{G1247}? is not{G3780} he that{G3588} sitteth at meat{G345}? but{G1161} I{G1473} am{G1510} among{G3319} you{G5216} as{G5613} he that{G3588} serveth{G1247}."
+    },
+    {
+      "v": 28,
+      "t": "Ye{G5210} are{G2075} they which{G3588} have continued{G1265} with{G3326} me{G1700} in{G1722} my{G3450} temptations{G3588}."
+    },
+    {
+      "v": 29,
+      "t": "And I{G2504} appoint{G1303} unto you{G5213} a kingdom{G932}, as{G2531} my{G3450} Father{G3588} hath appointed{G1303} unto me{G3427};"
+    },
+    {
+      "v": 30,
+      "t": "That{G2443} ye may eat{G2068} and{G2532} drink{G4095} at{G1909} my{G3450} table{G3588}in{G1722} my{G3450} kingdom{G3588}, and{G2532} sit{G2523} on{G1909} thrones{G2362} judging{G2919} the twelve{G1427} tribes{G5443} of Israel{G2474}."
+    },
+    {
+      "v": 31,
+      "t": "And{G1161} the Lord{G3588} said{G2036}, Simon{G4613}, Simon{G4613}, behold{G2400}, Satan{G3588} hath desired{G1809} to have you{G5209}, that he may sift{G4617} you as{G5613} wheat{G3588}:"
+    },
+    {
+      "v": 32,
+      "t": "But{G1161} I{G1473} have prayed{G1189} for{G4012} thee{G4675}, that{G2443} thy{G4675} faith{G3588} fail{G1587} not{G3361}: and{G2532} when{G4218} thou{G4771} art converted{G1994}, strengthen{G4741} thy{G4675} brethren{G3588}."
+    },
+    {
+      "v": 33,
+      "t": "And{G1161} he said{G2036} unto him{G846}, Lord{G2962}, I am{G1510} ready{G2092} to go{G4198} with{G3326} thee{G4675}, both{G2532} into{G1519} prison{G5438}, and{G2532} to{G1519} death{G2288}."
+    },
+    {
+      "v": 34,
+      "t": "And{G1161} he said{G2036}, I tell{G3004} thee{G4671}, Peter{G4074}, the cock{G220} shall{G5455} not{G3361} crow{G5455} this day{G4594}, before that{G4250} thou shalt{G533} thrice{G5151} deny{G533} that{G3361} thou knowest{G1492} me{G3165}."
+    },
+    {
+      "v": 35,
+      "t": "And{G2532} he said{G2036} unto them{G846}, When{G3753} I sent{G649} you{G5209} without{G817} purse{G905}, and{G2532} scrip{G4082}, and{G2532} shoes{G5266}, lacked ye{G5302} any{G3361} thing{G5100}? And{G1161} they said{G2036}, Nothing{G3762}."
+    },
+    {
+      "v": 36,
+      "t": "Then{G3767} said he{G2036} unto them{G846}, But{G235} now{G3568}, he that{G3588} hath{G2192} a purse{G905}, let him take{G142} it, and{G2532} likewise{G3668} his scrip{G4082}: and{G2532} he that{G3588} hath{G2192} no{G3361} sword{G3162}, let him sell{G4453} his{G846} garment{G3588}, and{G2532} buy one{G59}."
+    },
+    {
+      "v": 37,
+      "t": "For{G1063} I say{G3004} unto you{G5213}, that{G3754} this{G5124} that{G3588} is written{G1125} must{G1163} yet{G2089} be accomplished{G5055} in{G1722} me{G1698}, And{G2532} he was reckoned{G3049} among{G3326} the transgressors{G459}: for{G1063} the things{G3588} concerning{G4012} me{G1700} have{G2192} an end{G5056}.UNSURE: About tagging of \"kai\" with \"logidzomai\" it could go with \"gar\" as well."
+    },
+    {
+      "v": 38,
+      "t": "And{G1161} they said{G2036}, Lord{G2962}, behold{G2400}, here{G5602} are two{G1417} swords{G3162}. And{G1161} he said{G2036} unto them{G846}, It is{G2076} enough{G2425}."
+    },
+    {
+      "v": 39,
+      "t": "And{G2532} he came out{G1831}, and went{G4198}, as{G2596} he was wont{G3588}, to{G1519} the mount{G3588} of Olives{G3588}; and{G2532} his{G846} disciples{G3588} also{G1161} followed{G190} him{G846}."
+    },
+    {
+      "v": 40,
+      "t": "And{G1161} when he was{G1096} at{G1909} the place{G3588}, he said{G2036} unto them{G846}, Pray that{G4336} ye enter{G1525} not{G3361} into{G1519} temptation{G3986}."
+    },
+    {
+      "v": 41,
+      "t": "And{G2532} he{G846} was withdrawn{G645} from{G575} them{G846} about{G5616} a stone's{G3037} cast{G1000}, and{G2532} kneeled{G5087} down{G3588}, and prayed{G4336},"
+    },
+    {
+      "v": 42,
+      "t": "Saying{G3004}, Father{G3962}, if{G1487} thou be willing{G1014}, remove{G3911} this{G5124} cup{G3588} from{G575} me{G1700}: nevertheless{G4133} not{G3361} my{G3450}will{G3588}, but{G235} thine{G4674}, be done{G1096}."
+    },
+    {
+      "v": 43,
+      "t": "And{G1161} there appeared{G3700} an angel{G32} unto him{G846} from{G575} heaven{G3772}, strengthening{G1765} him{G846}."
+    },
+    {
+      "v": 44,
+      "t": "And{G2532} being{G1096} in{G1722} an agony{G74} he prayed{G4336} more earnestly{G1617}: and{G1161} his{G846} sweat{G3588} was{G1096} as it were{G5616} great drops{G2361} of blood{G129} falling down{G2597} to{G1909} the ground{G3588}."
+    },
+    {
+      "v": 45,
+      "t": "And{G2532} when he rose up{G450} from{G575} prayer{G3588}, and was come{G2064} to{G4314} his disciples{G3588}, he found{G2147} them{G846} sleeping{G2837} for{G575} sorrow{G3588},"
+    },
+    {
+      "v": 46,
+      "t": "And{G2532} said{G2036} unto them{G846}, Why{G5101} sleep ye{G2518}? rise{G450} and pray{G4336}, lest{G2443} ye enter{G1525} into{G1519} temptation{G3986}."
+    },
+    {
+      "v": 47,
+      "t": "And{G1161} while he{G846} yet{G2089} spake{G2980}, behold{G2400} a multitude{G3793}, and{G2532} he that{G3588} was called{G3004} Judas{G2455}, one{G1520} of the twelve{G1427}, went before{G4281} them{G846}, and{G2532} drew near{G1448} unto Jesus{G3588} to kiss{G5368} him{G846}."
+    },
+    {
+      "v": 48,
+      "t": "But{G1161} Jesus{G2424} said{G2036} unto him{G846}, Judas{G2455}, betrayest thou{G3860} the Son{G3588} of man{G3588} with a kiss{G5370}?"
+    },
+    {
+      "v": 49,
+      "t": "When{G1161} they which were{G3588} about{G4012} him{G846} saw{G1492} what would follow{G2071}, they said{G2036} unto him{G846}, Lord{G2962}, shall{G1487} we smite{G3960} with{G1722} the sword{G3162}?"
+    },
+    {
+      "v": 50,
+      "t": "And{G2532} one{G1520} of{G1537} them{G846} smote{G3960} the servant{G3588} of the high priest{G3588}, and{G2532} cut off{G851} his{G846} right{G1188} ear{G3588}."
+    },
+    {
+      "v": 51,
+      "t": "And{G1161} Jesus{G3588} answered{G611} and said{G2036}, Suffer ye{G1439} thus{G2193} far{G5127}. And{G2532} he touched{G680} his{G846} ear{G3588}, and healed{G2390} him{G846}."
+    },
+    {
+      "v": 52,
+      "t": "Then{G1161} Jesus{G3588} said{G2036} unto{G4314} the chief priests{G749}, and{G2532} captains{G4755} of the temple{G3588}, and{G2532} the elders{G4245}, which{G3588} were come{G3854} to{G1909} him{G846}, Be ye come out{G1831}, as{G5613} against{G1909} a thief{G3027}, with{G3326} swords{G3162} and{G2532} staves{G3586}?"
+    },
+    {
+      "v": 53,
+      "t": "When I{G3450} was{G5607} daily{G2250} with{G3326} you{G5216} in{G1722} the temple{G3588}, ye stretched forth{G1614} no{G3756} hands{G3588} against{G1909} me{G1691}: but{G235} this{G3778} is{G2076} your{G5216} hour{G3588}, and{G2532} the power{G3588} of darkness{G3588}."
+    },
+    {
+      "v": 54,
+      "t": "Then{G1161} took they{G4815} him{G846}, and led{G71} him, and{G2532} brought{G1521} him{G846} into{G1519} the high priest's{G3588} house{G3588}. And{G1161} Peter{G4074} followed{G190} afar off{G3113}."
+    },
+    {
+      "v": 55,
+      "t": "And{G1161} when they had kindled{G681} a fire{G4442} in{G1722} the midst{G3319} of the hall{G3588}, and{G2532} were set down together{G4776}, Peter{G3588} sat down{G2521} among{G3319} them{G846}.UNSURE: Of tagging of \"auton\" with \"sungkathidzo\" though it fits with the genitive construction of the particple form; it could also fit in the intial adverbial construction \"when they\"."
+    },
+    {
+      "v": 56,
+      "t": "But{G1161} a certain{G5100} maid{G3814}beheld{G1492} him{G846} as he sat{G2521} by{G4314} the fire{G3588}, and{G2532} earnestly looked{G816} upon him{G846}, and said{G2036}, This man{G3778} was{G2258} also{G2532} with{G4862} him{G846}."
+    },
+    {
+      "v": 57,
+      "t": "And{G1161} he denied{G720} him{G846}, saying{G3004}, Woman{G1135}, I know{G1492} him{G846} not{G3756}."
+    },
+    {
+      "v": 58,
+      "t": "And{G2532} after{G3326} a little while{G1024} another{G2087} saw{G1492} him{G846}, and{G2532} said{G5346}, Thou{G4771} art also{G1488} of{G1537} them{G846}. And{G1161} Peter{G4074} said{G2036}, Man{G444}, I am{G1510} not{G3756}."
+    },
+    {
+      "v": 59,
+      "t": "And{G2532} about{G5616} the space{G1339} of one{G1520} hour{G5610} after{G1339} another{G243} confidently affirmed{G1340}, saying{G3004}, Of{G1909} a truth{G225} this{G3778} fellow also{G2532} was{G2258} with{G3326} him{G846}: for{G1063} he is{G2076} a Galilæan{G1057}."
+    },
+    {
+      "v": 60,
+      "t": "And{G1161} Peter{G3588} said{G2036}, Man{G444}, I know{G1492} not{G3756} what{G3739} thou sayest{G3004}. And{G2532} immediately{G3916}, while he{G846} yet{G2089} spake{G2980}, the cock{G3588} crew{G5455}."
+    },
+    {
+      "v": 61,
+      "t": "And{G2532} the Lord{G3588} turned{G4762}, and looked{G1689} upon Peter{G3588}. And{G2532} Peter{G3588} remembered{G5279} the word{G3588} of the Lord{G3588}, how{G5613} he had said{G2036} unto him{G846}, Before{G4250} the cock{G220} crow{G5455}, thou shalt deny{G533} me{G3165} thrice{G5151}."
+    },
+    {
+      "v": 62,
+      "t": "And{G2532} Peter{G3588} went{G1831} out{G1854}, and wept{G2799} bitterly{G4090}."
+    },
+    {
+      "v": 63,
+      "t": "And{G2532} the men{G3588} that{G3588} held{G4912} Jesus{G3588} mocked{G1702} him{G846}, and smote{G1194} him."
+    },
+    {
+      "v": 64,
+      "t": "And{G2532} when they had blindfolded{G4028} him{G846}, they struck{G5180} him{G846} on the face{G3588}, and{G2532} asked{G1905} him{G846}, saying{G3004}, Prophesy{G4395}, who{G5101} is it{G2076} that{G3588} smote{G3817} thee{G4571}?"
+    },
+    {
+      "v": 65,
+      "t": "And{G2532} many{G4183} other things{G2087} blasphemously{G987} spake they{G3004} against{G1519} him{G846}."
+    },
+    {
+      "v": 66,
+      "t": "And{G2532} as soon as{G5613} it was{G1096} day{G2250}, the elders{G3588} of the people{G3588} and{G5037} the chief priests{G749} and{G2532} the scribes{G1122} came together{G4863}, and{G2532} led{G321} him{G846} into{G1519} their{G1438} council{G3588}, saying{G3004},"
+    },
+    {
+      "v": 67,
+      "t": "Art{G1487} thou{G4771} the Christ{G3588}? tell{G2036} us{G2254}. And{G1161} he said{G2036} unto them{G846}, If I{G1437} tell{G2036} you{G5213}, ye will{G4100} not{G3361} believe{G4100}:UNSURE: Second use of \"ei\""
+    },
+    {
+      "v": 68,
+      "t": "And{G1161} if{G1437} I{G2065} also{G2532} ask{G2065} you, ye will{G611} not{G3361} answer{G611} me{G3427}, nor{G2228} let{G630} me go{G630}."
+    },
+    {
+      "v": 69,
+      "t": "Hereafter{G575} shall{G2071} the Son{G3588} of man{G3588} sit{G2521} on{G1537} the right hand{G1188} of the power{G3588} of God{G3588}."
+    },
+    {
+      "v": 70,
+      "t": "Then{G1161} said they{G2036} all{G3956}, Art{G1488} thou{G4771} then{G3767} the Son{G3588}of God{G3588}? And{G1161} he said{G5346} unto{G4314} them{G846}, Ye{G5210} say{G3004} that{G3754} I{G1473} am{G1510}."
+    },
+    {
+      "v": 71,
+      "t": "And{G1161} they said{G2036}, What{G5101} need{G5532} we any{G2192} further{G2089} witness{G3141}? for{G1063} we ourselves{G846} have heard{G191} of{G575} his own{G846} mouth{G3588}."
+    }
+  ]
+}

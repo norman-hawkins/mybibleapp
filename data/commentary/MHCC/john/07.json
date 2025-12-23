@@ -1,0 +1,25 @@
+{
+  "book": "john",
+  "chapter": 7,
+  "sections": [
+    {
+      "range": "1-13",
+      "verses": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "text": "Verses 1-13 The brethren or kinsmen of Jesus were disgusted, when they found there was no prospect of worldly advantages from him. Ungodly men sometimes undertake to counsel those employed in the work of God; but they only advise what appears likely to promote present advantages. The people differed about his doctrine and miracles, while those who favoured him, dared not openly to avow their sentiments. Those who count the preachers of the gospel to be deceivers, speak out, while many who favour them, fear to get reproach by avowing regard for them."
+    }
+  ]
+}
