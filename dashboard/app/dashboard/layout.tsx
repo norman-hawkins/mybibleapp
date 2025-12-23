@@ -16,13 +16,10 @@ export default async function DashboardLayout({
 }) {
   const session = await getServerSession(authOptions);
 
-  // ✅ HARD GATE: no session => no dashboard
-  if (!session?.user) {
-    redirect("/signin");
-  }
+  if (!session?.user) redirect("/signin");
 
   return (
-    <SessionWrap>
+    <SessionWrap session={session}>
       <div className="p-6">
         <div className="mx-auto flex max-w-7xl gap-6">
           <Sidebar />
