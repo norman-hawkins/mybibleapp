@@ -21,3 +21,10 @@ strongs/
 
 # Generated / conversion output
 scripts/output/
+
+# ---- big generated / source dumps (do not push) ----
+downloads/
+strongs/
+*.zip
+*.xml
+*.osis.xml
