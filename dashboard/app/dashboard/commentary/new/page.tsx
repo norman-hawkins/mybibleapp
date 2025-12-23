@@ -68,6 +68,13 @@ function toInt(v: string | null): number | null {
   return i >= 1 ? i : null;
 }
 
+type InitialState = {
+  book: string;
+  chapter: number;
+  verse: number | null;
+  version: Version;
+};
+
 export default function NewCommentaryPage() {
   const router = useRouter();
   const sp = useSearchParams();
@@ -79,16 +86,19 @@ export default function NewCommentaryPage() {
   const editId = sp.get("edit") ?? "";
   const isEdit = Boolean(editId);
 
-  const initial = useMemo(() => {
+  const initial = useMemo<InitialState>(() => {
     const qBook = (sp.get("book") ?? "").toLowerCase();
     const qChapter = toInt(sp.get("chapter"));
     const qVerse = toInt(sp.get("verse"));
-    const qVersion = (sp.get("version") ?? "WEB").toUpperCase() as Version;
+
+    const rawV = (sp.get("version") ?? "WEB").toUpperCase();
+    const version: Version = rawV === "KJV" ? "KJV" : "WEB";
+
     return {
       book: BOOKS.includes(qBook) ? qBook : "john",
       chapter: qChapter ?? 1,
       verse: qVerse ?? null,
-      version: qVersion === "KJV" ? "KJV" : "WEB",
+      version,
     };
   }, [sp]);
 
@@ -161,7 +171,7 @@ export default function NewCommentaryPage() {
     };
   }, [isEdit, editId]);
 
-  // Bible preview panel (selected version only, keeps UI clean)
+  // Bible preview panel
   const [refLoading, setRefLoading] = useState(false);
   const [refError, setRefError] = useState<string | null>(null);
   const [refText, setRefText] = useState<string>("");
@@ -245,7 +255,6 @@ export default function NewCommentaryPage() {
       if (!res.ok) throw new Error(json?.error || "Request failed");
 
       if (!isEdit) {
-        // After create: go into edit mode so it's stable
         const newId = json?.commentary?.id as string | undefined;
         if (newId) {
           setMsg(submit ? "Created & submitted ✅" : "Draft saved ✅");
@@ -254,7 +263,6 @@ export default function NewCommentaryPage() {
         }
       }
 
-      // edit mode: refresh row/status
       const updated = json?.commentary as Partial<EditRow> | undefined;
       if (updated?.status && editRow) {
         setEditRow({ ...editRow, ...updated, content });
@@ -355,7 +363,7 @@ export default function NewCommentaryPage() {
               <select
                 value={book}
                 onChange={(e) => setBook(e.target.value)}
-                disabled={isEdit && !isEditable && role !== "ADMIN"} // keep stable when locked
+                disabled={isEdit && !isEditable && role !== "ADMIN"}
                 className={cx(
                   "mt-2 w-full rounded-xl border border-[var(--border)] bg-white px-3 py-2 text-sm font-semibold text-[var(--ink)]",
                   isEdit && !isEditable && role !== "ADMIN" && "opacity-70"
@@ -429,7 +437,6 @@ export default function NewCommentaryPage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              {/* Buttons follow status rules */}
               {!signedIn ? (
                 <Link
                   href="/signin"
@@ -440,7 +447,7 @@ export default function NewCommentaryPage() {
               ) : isEdit && status === "PENDING_REVIEW" ? (
                 <button
                   disabled={busy}
-                  onClick={() => createOrUpdate(false)} // move back to DRAFT
+                  onClick={() => createOrUpdate(false)}
                   className="rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-95 disabled:opacity-60"
                 >
                   Move back to Draft
@@ -467,7 +474,6 @@ export default function NewCommentaryPage() {
             </div>
           </div>
 
-          {/* Locked banner */}
           {lockedReason ? (
             <div className="mt-4 rounded-2xl border border-[var(--border)] bg-[#fbfbfa] p-4">
               <div className="text-sm font-semibold text-[var(--ink)]">Locked</div>
@@ -475,7 +481,6 @@ export default function NewCommentaryPage() {
             </div>
           ) : null}
 
-          {/* Bible preview */}
           <div className="mt-4 rounded-2xl border border-[var(--border)] bg-[#fbfbfa] p-4">
             <div className="flex items-center justify-between gap-3">
               <div className="text-xs font-semibold text-[var(--muted)]">Reference</div>
@@ -493,7 +498,6 @@ export default function NewCommentaryPage() {
             )}
           </div>
 
-          {/* Editor */}
           <div className="mt-4">
             {editLoading ? (
               <div className="rounded-2xl border border-[var(--border)] bg-white p-4 text-sm text-[var(--muted)]">
@@ -517,7 +521,6 @@ export default function NewCommentaryPage() {
             <div className="mt-3 text-sm font-semibold text-[var(--ink)]">{msg}</div>
           ) : null}
 
-          {/* Footer helper */}
           <div className="mt-4 text-xs text-[var(--muted)]">
             {isEdit ? (
               <>

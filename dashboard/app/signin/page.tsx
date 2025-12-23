@@ -2,9 +2,9 @@
 
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-export default function SignInPage() {
+function SignInInner() {
   const router = useRouter();
   const sp = useSearchParams();
   const callbackUrl = sp.get("callbackUrl") ?? "/dashboard";
@@ -147,5 +147,13 @@ export default function SignInPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#fbfbfa]" />}>
+      <SignInInner />
+    </Suspense>
   );
 }
