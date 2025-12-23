@@ -1,48 +1,28 @@
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Role } from "@prisma/client";
-import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 
-/**
- * PATCH /api/admin/users/[id]/role
- * Body: { role: Role }
- */
-export async function PATCH(
-  req: NextRequest,
-  ctx: { params: Promise<{ id: string }> }
-) {
-  try {
-    const { id } = await ctx.params;
-    const body = await req.json();
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
-    const role = body?.role as Role | undefined;
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  const role = (session?.user as any)?.role;
 
-    if (!role) {
-      return NextResponse.json(
-        { error: "Role is required" },
-        { status: 400 }
-      );
-    }
-
-    const user = await prisma.user.update({
-      where: { id },
-      data: { role },
-      select: {
-        id: true,
-        email: true,
-        role: true,
-      },
-    });
-
-    return NextResponse.json({
-      ok: true,
-      user,
-    });
-  } catch (error) {
-    console.error("PATCH /admin/users/[id]/role failed:", error);
-
-    return NextResponse.json(
-      { error: "Failed to update user role" },
-      { status: 500 }
-    );
+  if (!session?.user || role !== "ADMIN") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
+
+  const users = await prisma.user.findMany({
+    select: {
+      id: true,
+      email: true,
+      role: true,
+      createdAt: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return NextResponse.json({ users });
 }
