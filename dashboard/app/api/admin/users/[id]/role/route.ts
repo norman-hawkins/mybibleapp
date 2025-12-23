@@ -8,12 +8,12 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 /**
- * PATCH /api/admin/users/[id]/role
- * Admin-only: update user role
+ * PATCH /api/admin/users/:id/role
+ * Admin-only: update a user's role
  */
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role as Role | undefined;
@@ -22,7 +22,7 @@ export async function PATCH(
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const { id } = params;
+  const { id } = await ctx.params;
 
   const body = await req.json();
   const nextRole = body?.role as Role | undefined;
@@ -34,11 +34,7 @@ export async function PATCH(
   const user = await prisma.user.update({
     where: { id },
     data: { role: nextRole },
-    select: {
-      id: true,
-      email: true,
-      role: true,
-    },
+    select: { id: true, email: true, role: true },
   });
 
   return NextResponse.json({ ok: true, user });
