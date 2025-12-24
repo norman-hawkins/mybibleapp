@@ -5,7 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 
 }
 
@@ -72,4 +71,24 @@ model Commentary {
   updatedAt        DateTime        @updatedAt
   bibleReference   BibleReference? @relation(fields: [bibleReferenceId], references: [id])
   bibleReferenceId String?
+}
+
+model SourceSegment {
+  id           String   @id @default(cuid())
+  sourceKey    String   // "ken_raggio"
+  book         String   // "1chronicles"
+  chapterStart Int
+  chapterEnd   Int
+  verseStart   Int?
+  verseEnd     Int?
+  anchorsJson  String?  // JSON string: [{chapter,verse},...]
+  heading      String
+  content      String   @db.Text
+  anchorRaw    String
+  orderIndex   Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([sourceKey, book, chapterStart, chapterEnd])
+  @@index([sourceKey, book, chapterStart, verseStart, verseEnd])
 }
