@@ -1,9 +1,42 @@
 // app/api/bible/route.ts
+import { constants as FS_CONSTANTS } from "fs";
+import { access, readFile } from "fs/promises";
 import { NextResponse } from "next/server";
 import path from "path";
-import { readFile } from "fs/promises";
 
 const ALLOWED_VERSIONS = new Set(["WEB", "KJV"]);
+
+async function exists(p: string) {
+  try {
+    await access(p, FS_CONSTANTS.F_OK);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Bible JSON data root resolver.
+ * Supports both:
+ * - repoRoot/shared/bible-data   (when cwd is repo root)
+ * - dashboard/../shared/bible-data (when cwd is dashboard)
+ */
+async function resolveBibleRoot() {
+  const cwd = process.cwd();
+
+  const candidates = [
+    path.join(cwd, "shared", "bible-data"),
+    path.join(cwd, "..", "shared", "bible-data"),
+  ];
+
+  for (const p of candidates) {
+    if (await exists(p)) return p;
+  }
+
+  // fallback (keeps old behavior if someone runs with legacy layout)
+  const legacy = path.join(cwd, "bible-data");
+  return legacy;
+}
 
 function pad2(n: number) {
   return String(n).padStart(2, "0");
@@ -13,7 +46,8 @@ function pad3(n: number) {
 }
 
 async function readChapterFile(opts: { version: string; book: string; chapter: number }) {
-  const base = path.join(process.cwd(), "bible-data", opts.version, opts.book);
+  const root = await resolveBibleRoot();
+  const base = path.join(root, opts.version, opts.book);
 
   // Try common naming patterns: 01.json, 001.json, 1.json
   const candidates = [
@@ -90,9 +124,6 @@ export async function GET(req: Request) {
       verses: verses.map((x) => ({ v: Number(x.v), t: String(x.t ?? "") })),
     });
   } catch (e: any) {
-    return NextResponse.json(
-      { error: e?.message ?? "Server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: e?.message ?? "Server error" }, { status: 500 });
   }
 }

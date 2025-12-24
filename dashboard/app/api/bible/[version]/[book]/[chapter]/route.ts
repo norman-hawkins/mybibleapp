@@ -18,8 +18,24 @@ function normalizeBook(input: string) {
 function normalizeChapter(input: string) {
   const n = Number(String(input || "").trim());
   if (!Number.isFinite(n) || n <= 0) return null;
-  // Your files are like 01.json, 02.json, etc.
   return String(n).padStart(2, "0");
+}
+
+async function resolveBibleRoot() {
+  const cwd = process.cwd();
+  const candidates = [
+    path.join(cwd, "shared", "bible-data"),
+    path.join(cwd, "..", "shared", "bible-data"),
+  ];
+
+  for (const p of candidates) {
+    try {
+      await fs.access(p);
+      return p;
+    } catch {}
+  }
+
+  throw new Error("Bible data root not found");
 }
 
 export async function GET(
@@ -33,30 +49,27 @@ export async function GET(
   const book = normalizeBook(rawBook);
   const chapterFile = normalizeChapter(rawChapter);
 
-  if (!version) {
-    return NextResponse.json({ error: "Invalid version" }, { status: 400 });
+  if (!version || !book || !chapterFile) {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
-  if (!book) {
-    return NextResponse.json({ error: "Invalid book" }, { status: 400 });
-  }
-  if (!chapterFile) {
-    return NextResponse.json({ error: "Invalid chapter" }, { status: 400 });
-  }
-
-  const root = process.cwd();
-  const filePath = path.join(root, "bible-data", version, book, `${chapterFile}.json`);
 
   try {
+    const root = await resolveBibleRoot();
+    const filePath = path.join(root, version, book, `${chapterFile}.json`);
+
     const raw = await fs.readFile(filePath, "utf8");
     const json = JSON.parse(raw);
-    return NextResponse.json({ ok: true, version, book, chapter: Number(rawChapter), data: json });
+
+    return NextResponse.json({
+      ok: true,
+      version,
+      book,
+      chapter: Number(rawChapter),
+      data: json,
+    });
   } catch (err: any) {
     return NextResponse.json(
-      {
-        error: "Chapter file not found",
-        detail: err?.message ?? String(err),
-        filePath,
-      },
+      { error: err?.message ?? "Chapter not found" },
       { status: 404 }
     );
   }

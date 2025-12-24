@@ -12,8 +12,24 @@ function normalizeVersion(input: string) {
 }
 
 function normalizeBook(input: string) {
-  // Keep your dataset format (lowercase, no spaces)
   return String(input || "").trim().toLowerCase();
+}
+
+async function resolveBibleRoot() {
+  const cwd = process.cwd();
+  const candidates = [
+    path.join(cwd, "shared", "bible-data"),
+    path.join(cwd, "..", "shared", "bible-data"),
+  ];
+
+  for (const p of candidates) {
+    try {
+      await fs.access(p);
+      return p;
+    } catch {}
+  }
+
+  throw new Error("Bible data root not found");
 }
 
 export async function GET(
@@ -21,6 +37,7 @@ export async function GET(
   ctx: { params: Promise<{ version: string; book: string }> }
 ) {
   const { version: rawVersion, book: rawBook } = await ctx.params;
+
   const version = normalizeVersion(rawVersion);
   const book = normalizeBook(rawBook);
 
@@ -31,27 +48,22 @@ export async function GET(
     return NextResponse.json({ error: "Invalid book" }, { status: 400 });
   }
 
-  const root = process.cwd();
-  const bookDir = path.join(root, "bible-data", version, book);
-
   try {
+    const root = await resolveBibleRoot();
+    const bookDir = path.join(root, version, book);
+
     const entries = await fs.readdir(bookDir, { withFileTypes: true });
 
     const chapters = entries
       .filter((e) => e.isFile() && e.name.endsWith(".json"))
-      .map((e) => e.name.replace(".json", ""))
-      .map((name) => Number(name))
+      .map((e) => Number(e.name.replace(".json", "")))
       .filter((n) => Number.isFinite(n))
       .sort((a, b) => a - b);
 
     return NextResponse.json({ ok: true, version, book, chapters });
   } catch (err: any) {
     return NextResponse.json(
-      {
-        error: "Book folder not found",
-        detail: err?.message ?? String(err),
-        bookDir,
-      },
+      { error: err?.message ?? "Book not found" },
       { status: 404 }
     );
   }

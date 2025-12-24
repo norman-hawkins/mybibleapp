@@ -11,6 +11,23 @@ function normalizeVersion(input: string) {
   return null;
 }
 
+async function resolveBibleRoot() {
+  const cwd = process.cwd();
+  const candidates = [
+    path.join(cwd, "shared", "bible-data"),
+    path.join(cwd, "..", "shared", "bible-data"),
+  ];
+
+  for (const p of candidates) {
+    try {
+      await fs.access(p);
+      return p;
+    } catch {}
+  }
+
+  throw new Error("Bible data root not found");
+}
+
 export async function GET(
   req: Request,
   ctx: { params: Promise<{ version: string }> }
@@ -22,10 +39,10 @@ export async function GET(
     return NextResponse.json({ error: "Invalid version" }, { status: 400 });
   }
 
-  const root = process.cwd();
-  const baseDir = path.join(root, "bible-data", version);
-
   try {
+    const root = await resolveBibleRoot();
+    const baseDir = path.join(root, version);
+
     const entries = await fs.readdir(baseDir, { withFileTypes: true });
     const books = entries
       .filter((e) => e.isDirectory())
@@ -35,11 +52,7 @@ export async function GET(
     return NextResponse.json({ ok: true, version, books });
   } catch (err: any) {
     return NextResponse.json(
-      {
-        error: "Bible data folder not found",
-        detail: err?.message ?? String(err),
-        baseDir,
-      },
+      { error: err?.message ?? "Bible data not found" },
       { status: 500 }
     );
   }
