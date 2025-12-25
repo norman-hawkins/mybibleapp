@@ -40,4 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+
+# Ken Raggio import artifacts (DO NOT COMMIT)
+dashboard/scripts/ken-raggio.csv
+dashboard/scripts/ken-raggio/
+
 /app/generated/prisma

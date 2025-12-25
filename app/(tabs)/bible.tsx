@@ -35,7 +35,6 @@ import {
 
 import { addBookmark, isBookmarked, removeBookmark } from "@/lib/bookmarks";
 
-import { findMHCCForVerse } from "@/lib/mhcc";
 
 /* ================= CANON ================= */
 
@@ -99,54 +98,206 @@ type ExegesisResult = {
   chapter: number;
   verse: number;
 
-  summary: string; // we’ll place MHCC text here for the same “card” layout
+  summary: string;
   context?: string;
   keyTerms?: { term: string; meaning: string }[];
   crossRefs?: string[];
 
   source: {
-    kind: "offline" | "ai";
+    kind: "ai";
     name: string;
     license?: string;
     generatedAt?: number;
+    url?: string;
   };
 };
 
-// ✅ Offline “verse-by-verse” UX powered by MHCC ranges.
-// Tap any verse => we find the MHCC section that includes that verse and show it.
-async function getOfflineExegesis(args: {
-  version: BibleVersion;
+type ContributorRow = {
+  id: string;
+  content: string;
+  updatedAt?: string;
+  scope?: "VERSE" | "CHAPTER";
+  author?: { name?: string | null; email?: string | null; role?: string | null };
+};
+
+type KenRow = {
+  id: string;
+  heading?: string | null;
+  content: string;
+  anchorRaw?: string | null;
+  updatedAt?: string;
+};
+
+async function fetchKenExegesis(args: {
   book: string;
   chapter: number;
   verse: number;
-  verseText: string;
-}): Promise<ExegesisResult | null> {
-  const { version, book, chapter, verse } = args;
+}): Promise<{ ok: boolean; rows: KenRow[]; error?: string; triedUrl: string }> {
+  const { book, chapter, verse } = args;
 
-  const sec = findMHCCForVerse(book, chapter, verse);
+  const url = `${EXEGESIS_API_BASE}/api/exegesis/ken?book=${encodeURIComponent(
+    book
+  )}&chapter=${encodeURIComponent(String(chapter))}&verse=${encodeURIComponent(String(verse))}`;
 
-  if (!sec) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+
+    const json: any = await res.json();
     return {
-      refId: makeRefId(version, book, chapter, verse),
-      version,
-      book,
-      chapter,
-      verse,
-      summary: "No Matthew Henry (Concise) note found for this verse.",
-      source: { kind: "offline", name: "Matthew Henry (Concise) • MHCC" },
+      ok: true,
+      rows: Array.isArray(json?.rows) ? json.rows : [],
+      triedUrl: url,
+    };
+  } catch (e: any) {
+    return {
+      ok: false,
+      rows: [],
+      error: e?.message ? String(e.message) : "Failed to load Ken exegesis",
+      triedUrl: url,
     };
   }
+}
 
-  return {
-    refId: makeRefId(version, book, chapter, verse),
-    version,
-    book,
-    chapter,
-    verse,
-    summary: sec.text,
-    context: sec.range ? `Matthew Henry covers verses ${sec.range}.` : undefined,
-    source: { kind: "offline", name: "Matthew Henry (Concise) • MHCC" },
-  };
+const EXEGESIS_API_BASE =
+  process.env.EXPO_PUBLIC_EXEGESIS_API_BASE ??
+  process.env.EXPO_PUBLIC_BIBLE_API_BASE ??
+  "https://mybibleapp.vercel.app";
+
+function formatShortDate(iso?: string) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+}
+
+function initialsFromName(name?: string | null, fallback?: string | null) {
+  const n = (name ?? "").trim();
+  if (n) {
+    const parts = n.split(/\s+/g).filter(Boolean);
+    const a = parts[0]?.[0] ?? "";
+    const b = parts.length > 1 ? parts[parts.length - 1]?.[0] ?? "" : "";
+    return (a + b).toUpperCase() || "U";
+  }
+  const e = (fallback ?? "").trim();
+  if (e) return e.slice(0, 2).toUpperCase();
+  return "U";
+}
+
+function displayName(row: ContributorRow) {
+  const name = (row.author?.name ?? "").trim();
+  if (name) return name;
+  const email = (row.author?.email ?? "").trim();
+  if (!email) return "Contributor";
+  return email.split("@")[0] || "Contributor";
+}
+
+async function fetchApprovedContributorNotes(args: {
+  book: string;
+  chapter: number;
+  verse: number;
+}): Promise<{ ok: boolean; rows: ContributorRow[]; error?: string; triedUrl: string }> {
+  const { book, chapter, verse } = args;
+
+  // We fetch BOTH:
+  // 1) Verse-specific commentary (verse=N)
+  // 2) Chapter-level commentary (verse is null on the server; requested by omitting `verse`)
+  // This fixes cases where there are multiple approved items relevant to a verse,
+  // but one of them was written as a chapter note.
+  const verseUrl = `${EXEGESIS_API_BASE}/api/commentary/verse?book=${encodeURIComponent(
+    book
+  )}&chapter=${encodeURIComponent(String(chapter))}&verse=${encodeURIComponent(String(verse))}`;
+
+  const chapterUrl = `${EXEGESIS_API_BASE}/api/commentary/verse?book=${encodeURIComponent(
+    book
+  )}&chapter=${encodeURIComponent(String(chapter))}`;
+
+  const triedUrl = `${verseUrl} (+ ${chapterUrl})`;
+
+  async function fetchRows(url: string) {
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+    const json: any = await res.json();
+    return Array.isArray(json?.rows) ? json.rows : [];
+  }
+
+  try {
+    const [verseRowsRaw, chapterRowsRaw] = await Promise.all([
+      fetchRows(verseUrl),
+      fetchRows(chapterUrl),
+    ]);
+
+    // Merge + de-dupe by id, and mark scope.
+    const byId = new Map<string, any>();
+
+    for (const r of verseRowsRaw) {
+      const id = String(r?.id ?? "");
+      if (!id) continue;
+      if (!byId.has(id)) byId.set(id, { ...r, __scope: "VERSE" });
+    }
+
+    for (const r of chapterRowsRaw) {
+      const id = String(r?.id ?? "");
+      if (!id) continue;
+      if (!byId.has(id)) byId.set(id, { ...r, __scope: "CHAPTER" });
+    }
+
+    // Safety: only show published rows in the mobile app UI.
+    // (Server should already do this for anonymous users, but keep it locked here too.)
+    const publishedOnly = Array.from(byId.values()).filter(
+      (r: any) => String(r?.status ?? "").toUpperCase() === "PUBLISHED"
+    );
+
+    // Sort newest first (best UX if multiple notes exist)
+    publishedOnly.sort((a: any, b: any) => {
+      const ta = a?.updatedAt ? new Date(String(a.updatedAt)).getTime() : 0;
+      const tb = b?.updatedAt ? new Date(String(b.updatedAt)).getTime() : 0;
+      return tb - ta;
+    });
+
+    const rows: ContributorRow[] = publishedOnly.map((r: any) => ({
+      id: String(r?.id ?? ""),
+      content: String(r?.content ?? ""),
+      updatedAt: r?.updatedAt ? String(r.updatedAt) : undefined,
+      scope: (String(r?.__scope ?? "") as any) === "CHAPTER" ? "CHAPTER" : "VERSE",
+      author: r?.author
+        ? {
+            name: r.author?.name ?? null,
+            email: r.author?.email ?? null,
+            role: r.author?.role ?? null,
+          }
+        : undefined,
+    }));
+
+    return { ok: true, rows, triedUrl };
+  } catch (e: any) {
+    return {
+      ok: false,
+      rows: [],
+      error: e?.message ? String(e.message) : "Network error",
+      triedUrl,
+    };
+  }
+}
+
+async function getCachedApprovedNotes(refId: string): Promise<ContributorRow[] | null> {
+  const key = `exegesis:approved:${refId}`;
+  const raw = await AsyncStorage.getItem(key);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+async function setCachedApprovedNotes(refId: string, rows: ContributorRow[]) {
+  const key = `exegesis:approved:${refId}`;
+  await AsyncStorage.setItem(key, JSON.stringify(rows));
 }
 
 // ✅ AI stub (wire later to your backend endpoint)
@@ -859,7 +1010,11 @@ function ExegesisModal({
 }) {
   const [tab, setTab] = useState<"notes" | "ai">("notes");
 
-  const [offline, setOffline] = useState<ExegesisResult | null>(null);
+  const [approvedRows, setApprovedRows] = useState<ContributorRow[]>([]);
+  const [kenRows, setKenRows] = useState<KenRow[]>([]);
+  const [notesLoading, setNotesLoading] = useState(false);
+  const [notesError, setNotesError] = useState<string | null>(null);
+  const [notesTriedUrl, setNotesTriedUrl] = useState<string | null>(null);
   const [ai, setAi] = useState<ExegesisResult | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -869,17 +1024,53 @@ function ExegesisModal({
     if (!visible) return;
 
     setTab("notes");
-    setOffline(null);
+    setApprovedRows([]);
+    setKenRows([]);
+    setNotesError(null);
+    setNotesTriedUrl(null);
     setAi(null);
+    setNotesLoading(true);
 
     (async () => {
-      if (!verse || !book) return;
+      try {
+        if (!verse || !book) return;
 
-      const off = await getOfflineExegesis({ version, book, chapter, verse, verseText });
-      setOffline(off);
+        // Fetch Ken Raggio exegesis (shown above contributor notes)
+        fetchKenExegesis({ book, chapter, verse }).then((r) => {
+          if (r.ok) setKenRows(r.rows);
+        });
 
-      const cached = await getCachedAiExegesis(refId);
-      if (cached) setAi(cached);
+        setNotesError(null);
+        setNotesTriedUrl(null);
+
+        const cachedApproved = await getCachedApprovedNotes(refId);
+        if (cachedApproved) {
+          setApprovedRows(cachedApproved);
+          // Soft refresh in background so new approvals appear even if we have cached data
+          fetchApprovedContributorNotes({ book, chapter, verse }).then(async (r) => {
+            if (r.ok) {
+              setApprovedRows(r.rows);
+              await setCachedApprovedNotes(refId, r.rows);
+            }
+          });
+        } else {
+          const r = await fetchApprovedContributorNotes({ book, chapter, verse });
+          setNotesTriedUrl(r.triedUrl);
+
+          if (!r.ok) {
+            setApprovedRows([]);
+            setNotesError(r.error ?? "Unable to load notes");
+          } else {
+            setApprovedRows(r.rows);
+            await setCachedApprovedNotes(refId, r.rows);
+          }
+        }
+
+        const cachedAi = await getCachedAiExegesis(refId);
+        if (cachedAi) setAi(cachedAi);
+      } finally {
+        setNotesLoading(false);
+      }
     })();
   }, [visible, refId]);
 
@@ -936,7 +1127,65 @@ function ExegesisModal({
           </View>
 
           {tab === "notes" ? (
-            <ExegesisCard data={offline} emptyText="No offline notes found for this verse." />
+            notesLoading ? (
+              <View style={styles.exCard}>
+                <ActivityIndicator />
+              </View>
+            ) : (
+              <>
+
+
+
+                 {kenRows.length > 0 ? (
+                    <View style={{ gap: 12 }}>
+                      {kenRows.map((k) => (
+                        
+                        <View key={k.id} style={styles.kenCardFeatured}>
+                          <View style={styles.kenTopRow}>
+                            <View style={styles.kenAvatar}>
+                              <Text style={styles.kenAvatarText}>KR</Text>
+                            </View>
+
+                            <View style={{ flex: 1 }}>
+                              <Text style={styles.kenName} numberOfLines={1}>
+                                Ken Raggio
+                              </Text>
+                              <Text style={styles.kenMeta} numberOfLines={1}>
+                                AUTHOR
+                                {k.updatedAt ? ` • ${formatShortDate(k.updatedAt)}` : ""}
+                              </Text>
+                            </View>
+
+                            <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                              <View style={styles.authorChip}>
+                                <Ionicons name="ribbon-outline" size={14} color="#fff" />
+                                <Text style={styles.authorChipText}>Author</Text>
+                              </View>
+
+                              <View style={styles.verifiedChip}>
+                                <Ionicons name="shield-checkmark-outline" size={14} color="#fff" />
+                                <Text style={styles.verifiedChipText}>Verified</Text>
+                              </View>
+                            </View>
+                          </View>
+
+                          <View style={styles.contributorDivider} />
+
+                          {k.heading ? <Text style={styles.kenHeading}>{k.heading}</Text> : null}
+                          {k.anchorRaw ? <Text style={styles.kenAnchor}>{k.anchorRaw}</Text> : null}
+                          <Text style={styles.kenBody}>{k.content}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  ) : null}
+
+                <ContributorNotes
+                  rows={approvedRows}
+                  error={notesError}
+                  triedUrl={notesTriedUrl}
+                />
+              </>
+            )
           ) : (
             <View>
               {ai ? (
@@ -968,6 +1217,91 @@ function ExegesisModal({
         </ScrollView>
       </View>
     </Modal>
+  );
+}
+function ContributorNotes({
+  rows,
+  error,
+  triedUrl,
+}: {
+  rows: ContributorRow[];
+  error: string | null;
+  triedUrl: string | null;
+}) {
+  if (error) {
+    return (
+      <View style={styles.exCard}>
+        <Text style={styles.exSectionTitle}>Contributor Notes</Text>
+        <Text style={styles.exBody}>Unable to load notes right now.</Text>
+        <Text style={[styles.exBody, { marginTop: 8, opacity: 0.8 }]}>{error}</Text>
+        {triedUrl ? (
+          <Text style={[styles.exMetaText, { marginTop: 10 }]}>Tried: {triedUrl}</Text>
+        ) : null}
+      </View>
+    );
+  }
+
+  if (!rows.length) {
+    return (
+      <View style={styles.exCard}>
+        <Text style={styles.exSectionTitle}>Contributor Notes</Text>
+        <Text style={styles.exBody}>No approved contributor commentary found for this verse yet.</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={{ gap: 12 }}>
+      {rows.map((row) => {
+        const name = displayName(row);
+        const role = String(row.author?.role ?? "").toUpperCase();
+        const date = formatShortDate(row.updatedAt);
+        const initials = initialsFromName(row.author?.name ?? null, row.author?.email ?? null);
+
+        return (
+          <View key={row.id} style={styles.contributorCard}>
+            <View style={styles.contributorTopRow}>
+              <View style={styles.contributorAvatar}>
+                <Text style={styles.contributorAvatarText}>{initials}</Text>
+              </View>
+
+              <View style={{ flex: 1 }}>
+                <Text style={styles.contributorName} numberOfLines={1}>
+                  {name}
+                </Text>
+                <Text style={styles.contributorMeta} numberOfLines={1}>
+                  {role ? role : "CONTRIBUTOR"}
+                  {date ? ` • ${date}` : ""}
+                </Text>
+              </View>
+
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                {row.scope === "CHAPTER" ? (
+                  <View style={styles.scopeChip}>
+                    <Ionicons name="layers-outline" size={14} color="#fff" />
+                    <Text style={styles.scopeChipText}>Chapter</Text>
+                  </View>
+                ) : (
+                  <View style={styles.scopeChip}>
+                    <Ionicons name="bookmark-outline" size={14} color="#fff" />
+                    <Text style={styles.scopeChipText}>Verse</Text>
+                  </View>
+                )}
+
+                <View style={styles.approvedChip}>
+                  <Ionicons name="checkmark-circle" size={14} color="#fff" />
+                  <Text style={styles.approvedChipText}>Approved</Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.contributorDivider} />
+
+            <Text style={styles.contributorBody}>{row.content}</Text>
+          </View>
+        );
+      })}
+    </View>
   );
 }
 
@@ -1238,7 +1572,7 @@ const styles = StyleSheet.create({
 
   readerHeaderOverlay: {
     position: "absolute",
-    top: 0,
+    top: 50,
     left: 0,
     right: 0,
     zIndex: 50,
@@ -1528,4 +1862,212 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 18,
   },
-});
+
+
+  /* ===== Ken (Premium Author) ===== */
+kenCard: {
+  marginHorizontal: 14,
+  padding: 14,
+  borderRadius: 16,
+  backgroundColor: "rgba(255,255,255,0.06)",
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.12)",
+
+},
+kenTopRow: {
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 10,
+},
+kenAvatar: {
+  width: 38,
+  height: 38,
+  borderRadius: 19,
+  backgroundColor: "rgba(245, 158, 11, 0.28)",
+  borderWidth: 1,
+  borderColor: "rgba(245, 158, 11, 0.40)",
+  alignItems: "center",
+  justifyContent: "center",
+},
+kenAvatarText: {
+  color: "#fff",
+  fontWeight: "900",
+  fontFamily: theme.fonts.ui,
+  letterSpacing: 0.8,
+},
+kenName: {
+  color: "#fff",
+  fontWeight: "900",
+  fontFamily: theme.fonts.ui,
+  fontSize: 14,
+},
+kenMeta: {
+  color: "rgba(255,255,255,0.7)",
+  marginTop: 2,
+  fontFamily: theme.fonts.ui,
+  fontSize: 12,
+},
+kenHeading: {
+  color: "#fff",
+  fontWeight: "900",
+  fontFamily: theme.fonts.ui,
+  fontSize: 15,
+  marginBottom: 6,
+},
+kenAnchor: {
+  color: "rgba(255,255,255,0.70)",
+  fontFamily: theme.fonts.ui,
+  fontSize: 12,
+  marginBottom: 10,
+},
+kenBody: {
+  color: "rgba(255,255,255,0.92)",
+  fontFamily: theme.fonts.body,
+  fontSize: 15,
+  lineHeight: 23,
+},
+authorChip: {
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 6,
+  backgroundColor: "rgba(245, 158, 11, 0.30)",
+  borderWidth: 1,
+  borderColor: "rgba(245, 158, 11, 0.45)",
+  paddingHorizontal: 10,
+  paddingVertical: 6,
+  borderRadius: 999,
+},
+authorChipText: {
+  color: "#fff",
+  fontWeight: "900",
+  fontFamily: theme.fonts.ui,
+  fontSize: 11,
+},
+
+kenCardFeatured: {
+  marginHorizontal: 14,
+  padding: 14,
+  borderRadius: 16,
+  backgroundColor: "rgba(255,255,255,0.06)",
+  borderWidth: 1,
+  borderColor: "rgba(245, 158, 11, 0.40)",
+
+  // subtle "featured" glow (works best on iOS)
+  shadowColor: "rgba(245, 158, 11, 0.55)",
+  shadowOpacity: 0.35,
+  shadowRadius: 14,
+  shadowOffset: { width: 0, height: 8 },
+
+  // Android glow
+  elevation: 6,
+},
+
+verifiedChip: {
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 6,
+  backgroundColor: "rgba(59, 130, 246, 0.28)", // blue
+  borderWidth: 1,
+  borderColor: "rgba(59, 130, 246, 0.45)",
+  paddingHorizontal: 10,
+  paddingVertical: 6,
+  borderRadius: 999,
+},
+verifiedChipText: {
+  color: "#fff",
+  fontWeight: "900",
+  fontFamily: theme.fonts.ui,
+  fontSize: 11,
+},
+
+
+  /* ===== Premium contributor notes ===== */
+
+  contributorCard: {
+    marginHorizontal: 14,
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: "rgba(255,255,255,0.06)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.10)",
+    marginTop: 12,
+  },
+  contributorTopRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  contributorAvatar: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: "rgba(192, 86, 33, 0.35)",
+    borderWidth: 1,
+    borderColor: "rgba(192, 86, 33, 0.40)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  contributorAvatarText: {
+    color: "#fff",
+    fontWeight: "900",
+    fontFamily: theme.fonts.ui,
+    letterSpacing: 0.8,
+  },
+  contributorName: {
+    color: "#fff",
+    fontWeight: "900",
+    fontFamily: theme.fonts.ui,
+    fontSize: 14,
+  },
+  contributorMeta: {
+    color: "rgba(255,255,255,0.7)",
+    marginTop: 2,
+    fontFamily: theme.fonts.ui,
+    fontSize: 12,
+  },
+  approvedChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    backgroundColor: "rgba(46, 160, 67, 0.35)",
+    borderWidth: 1,
+    borderColor: "rgba(46, 160, 67, 0.45)",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+  },
+  approvedChipText: {
+    color: "#fff",
+    fontWeight: "900",
+    fontFamily: theme.fonts.ui,
+    fontSize: 11,
+  },
+  scopeChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    backgroundColor: "rgba(99, 102, 241, 0.28)",
+    borderWidth: 1,
+    borderColor: "rgba(99, 102, 241, 0.38)",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+  },
+  scopeChipText: {
+    color: "#fff",
+    fontWeight: "900",
+    fontFamily: theme.fonts.ui,
+    fontSize: 11,
+  },
+  contributorDivider: {
+    height: 1,
+    backgroundColor: "rgba(255,255,255,0.10)",
+    marginTop: 12,
+    marginBottom: 12,
+  },
+  contributorBody: {
+    color: "rgba(255,255,255,0.92)",
+    fontFamily: theme.fonts.body,
+    fontSize: 15,
+    lineHeight: 23,
+  },});
