@@ -16,9 +16,11 @@ function parseAnchors(anchorsJson?: string | null) {
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const book = (searchParams.get("book") ?? "").toLowerCase();
+
+  const book = (searchParams.get("book") ?? "").toLowerCase().trim();
   const chapter = Number(searchParams.get("chapter") ?? "");
   const verseParam = searchParams.get("verse");
+  const debug = (searchParams.get("debug") ?? "") === "1";
 
   if (!book || !Number.isFinite(chapter) || chapter < 1) {
     return NextResponse.json({ error: "Missing/invalid book/chapter" }, { status: 400 });
@@ -38,17 +40,60 @@ export async function GET(req: Request) {
     },
     orderBy: [{ orderIndex: "asc" }],
     take: 200,
+    select: {
+      id: true,
+      book: true,
+      chapterStart: true,
+      chapterEnd: true,
+      verseStart: true,
+      verseEnd: true,
+      anchorsJson: true,
+      heading: true,
+      content: true,
+      anchorRaw: true,
+      orderIndex: true,
+      updatedAt: true,
+    },
   });
 
-  // Filter in-memory for verse matches including anchorsJson
   const filtered = rows.filter((r) => {
-    if (verse === null) return r.verseStart === null && r.verseEnd === null; // chapter-only request
-    if (r.verseStart !== null && r.verseEnd !== null) {
-      if (verse >= r.verseStart && verse <= r.verseEnd) return true;
+    if (verse === null) {
+      return r.verseStart === null && r.verseEnd === null;
     }
+
+    const vs = r.verseStart;
+    const ve = r.verseEnd;
+
+    // Case 1: proper range
+    if (vs !== null && ve !== null) return verse >= vs && verse <= ve;
+
+    // Case 2: from chapter start → verseEnd
+    if (vs === null && ve !== null) return verse <= ve;
+
+    // Case 3: chapter-wide -> optionally allow anchorsJson match
     const anchors = parseAnchors(r.anchorsJson);
     return anchors.some((a: any) => Number(a?.chapter) === chapter && Number(a?.verse) === verse);
   });
+
+  if (debug) {
+    return NextResponse.json({
+      ok: true,
+      debug: {
+        input: { book, chapter, verse },
+        rowsCount: rows.length,
+        filteredCount: filtered.length,
+        sampleRows: rows.slice(0, 10).map((r) => ({
+          id: r.id,
+          book: r.book,
+          chapterStart: r.chapterStart,
+          verseStart: r.verseStart,
+          verseEnd: r.verseEnd,
+          orderIndex: r.orderIndex,
+          anchorRaw: r.anchorRaw?.slice(0, 120) ?? null,
+        })),
+      },
+    });
+  }
 
   return NextResponse.json({
     ok: true,
