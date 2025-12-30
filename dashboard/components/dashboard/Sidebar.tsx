@@ -12,8 +12,9 @@ const NAV: NavItem[] = [
   { label: "Entries", href: "/dashboard/mine", roles: ["ADMIN", "CONTRIBUTOR"] },
   { label: "Review Queue", href: "/dashboard/review", roles: ["ADMIN"] },
   { label: "Contributors", href: "/dashboard/contributors", roles: ["ADMIN"] },
+      { label: "Ask AI", href: "/dashboard/ai", roles: ["ADMIN"] },
+
   { label: "Settings", href: "/dashboard/settings", roles: ["ADMIN"] },
-    { label: "Ask AI", href: "/dashboard/ai", roles: ["ADMIN"] },
 
  
 ];
