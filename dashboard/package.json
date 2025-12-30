@@ -15,6 +15,7 @@
     "jsonwebtoken": "^9.0.3",
     "next": "16.1.0",
     "next-auth": "^4.24.13",
+    "openai": "^6.15.0",
     "prisma": "^6.19.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"

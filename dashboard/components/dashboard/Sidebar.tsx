@@ -13,6 +13,8 @@ const NAV: NavItem[] = [
   { label: "Review Queue", href: "/dashboard/review", roles: ["ADMIN"] },
   { label: "Contributors", href: "/dashboard/contributors", roles: ["ADMIN"] },
   { label: "Settings", href: "/dashboard/settings", roles: ["ADMIN"] },
+    { label: "Ask AI", href: "/dashboard/ai", roles: ["ADMIN"] },
+
  
 ];
 
